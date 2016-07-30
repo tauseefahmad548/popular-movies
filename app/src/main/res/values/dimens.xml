@@ -3,4 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="standard_margin">8dp</dimen>
+    <dimen name="year_section_left_margin">56dp</dimen>
+    <dimen name="movie_title_text_size">24sp</dimen>
+    <dimen name="movie_title_padding">24dp</dimen>
+    <dimen name="movie_title_left_padding">36dp</dimen>
+    <dimen name="fav_button_text_size">8sp</dimen>
 </resources>

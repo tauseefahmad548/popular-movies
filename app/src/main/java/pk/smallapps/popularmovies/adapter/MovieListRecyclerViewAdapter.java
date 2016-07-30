@@ -39,7 +39,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         holder.movieId = moviesCursor.getString(moviesCursor.getColumnIndex(MoviesDbContract.MovieEntry.COLUMN_MOVIE_ID));
         String posterRelativeUrl = moviesCursor.getString(moviesCursor.getColumnIndex(MoviesDbContract.MovieEntry.COLUMN_MOVIE_POSTER));
 
-        Picasso.with((Context) mListener).load(Constants.IMAGE_BASE_URL + posterRelativeUrl).placeholder(R.mipmap.ic_launcher).into(holder.posterImageView);
+        Picasso.with((Context) mListener).load(Constants.IMAGE_BASE_URL + posterRelativeUrl).into(holder.posterImageView);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

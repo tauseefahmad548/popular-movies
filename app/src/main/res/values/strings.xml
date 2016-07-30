@@ -7,6 +7,8 @@
     <string name="netwrok_error">Netwrok error</string>
     <string name="retry">Retry</string>
     <string name="list_updated">List updated</string>
+    <string name="mark_as_fav">Mark as favourite</string>
+    <string name="dummy_movie_length">120min</string>
 
     <string-array name="sort_order_array">
         <item>Most Popular</item>

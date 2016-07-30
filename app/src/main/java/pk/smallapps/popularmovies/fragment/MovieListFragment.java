@@ -31,8 +31,6 @@ import pk.smallapps.popularmovies.R;
 import pk.smallapps.popularmovies.adapter.MovieListRecyclerViewAdapter;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
@@ -129,7 +127,6 @@ public class MovieListFragment extends Fragment {
                 Cursor cursor = movieDatabase.query(MoviesDbContract.MovieEntry.TABLE_NAME, null, null, null, null, null, null);
                 recyclerView.setAdapter(new MovieListRecyclerViewAdapter(cursor, mListener));
                 recyclerView.getAdapter().notifyDataSetChanged();
-                cursor.close();
                 Toast.makeText(getContext(), R.string.list_updated, Toast.LENGTH_SHORT).show();
 
 
