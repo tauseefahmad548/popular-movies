@@ -18,15 +18,12 @@ import pk.smallapps.popularmovies.MovieDbOpenHelper;
 import pk.smallapps.popularmovies.MoviesDbContract.MovieEntry;
 import pk.smallapps.popularmovies.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class MovieDetailsFragment extends Fragment {
     public static final String ARG_MOVIE_ID = "movie_id";
     private String movieId;
 
     public MovieDetailsFragment() {
-        // Required empty public constructor
     }
 
     public static MovieDetailsFragment newInstance(String movieId) {
@@ -47,7 +44,6 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         MovieDbOpenHelper movieDbOpenHelper = new MovieDbOpenHelper(getContext());
         SQLiteDatabase moviesDb = movieDbOpenHelper.getReadableDatabase();
         Cursor cursor = moviesDb.query(MovieEntry.TABLE_NAME, null, MovieEntry.COLUMN_MOVIE_ID + "=" + movieId, null, null, null, null);
