@@ -16,7 +16,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
 
 
-        Fragment movieDetailsFragment = MovieDetailsFragment.newInstance(getIntent().getStringExtra(Constants.MOVIE_ID_EXTRA));
-        getSupportFragmentManager().beginTransaction().add(R.id.details_container,movieDetailsFragment).commit();
+        if (savedInstanceState == null) {
+            Fragment movieDetailsFragment = MovieDetailsFragment.newInstance(getIntent().getStringExtra(Constants.MOVIE_ID_EXTRA));
+            getSupportFragmentManager().beginTransaction().add(R.id.details_container,movieDetailsFragment).commit();
+        }
     }
 }

@@ -36,6 +36,7 @@ import pk.smallapps.popularmovies.adapter.MovieListRecyclerViewAdapter;
  */
 public class MovieListFragment extends Fragment {
 
+    private SQLiteDatabase movieDatabase;
     private RequestQueue requestQueue;
     private RecyclerView recyclerView;
     private OnListFragmentInteractionListener mListener;
@@ -45,15 +46,13 @@ public class MovieListFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_movie_list, container, false);
+
+        MovieDbOpenHelper movieDbOpenHelper = new MovieDbOpenHelper(getContext());
+        movieDatabase = movieDbOpenHelper.getWritableDatabase();
 
         int mColumnCount = 2;
         Context context = view.getContext();
@@ -62,7 +61,14 @@ public class MovieListFragment extends Fragment {
 
         requestQueue = Volley.newRequestQueue(getContext());
         String url = Constants.POPULAR_MOVIES_URL + Constants.API_KEY;
-        requestMovies(url);
+        if (savedInstanceState == null) {
+            requestMovies(url);
+        }else
+        {
+            Cursor cursor = movieDatabase.query(MoviesDbContract.MovieEntry.TABLE_NAME, null, null, null, null, null, null);
+            recyclerView.setAdapter(new MovieListRecyclerViewAdapter(cursor, mListener));
+            recyclerView.getAdapter().notifyDataSetChanged();
+        }
 
         return view;
     }
@@ -98,12 +104,9 @@ public class MovieListFragment extends Fragment {
 
     public void requestMovies(final String url) {
 
-
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                MovieDbOpenHelper movieDbOpenHelper = new MovieDbOpenHelper(getContext());
-                SQLiteDatabase movieDatabase = movieDbOpenHelper.getWritableDatabase();
                 movieDatabase.delete(MoviesDbContract.MovieEntry.TABLE_NAME, null, null);
                 JSONArray results = response.optJSONArray("results");
                 int resultCount = results.length();
@@ -134,7 +137,6 @@ public class MovieListFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 Snackbar.make(view, R.string.netwrok_error, Snackbar.LENGTH_LONG).setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
