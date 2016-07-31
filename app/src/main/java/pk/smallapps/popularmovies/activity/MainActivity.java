@@ -1,29 +1,45 @@
 package pk.smallapps.popularmovies.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 
 import pk.smallapps.popularmovies.Constants;
 import pk.smallapps.popularmovies.R;
+import pk.smallapps.popularmovies.fragment.MovieDetailsFragment;
 import pk.smallapps.popularmovies.fragment.MovieListFragment;
 
 
 public class MainActivity extends AppCompatActivity implements MovieListFragment.OnListFragmentInteractionListener {
     MovieListFragment movieListFragment;
+    FrameLayout detailsFragmentHolder;
+    boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Configuration config = getResources().getConfiguration();
+        if (config.smallestScreenWidthDp >= 600) {
+            detailsFragmentHolder = (FrameLayout) findViewById(R.id.details_fragment_holder);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            isTablet = true;
+        } else {
+            isTablet = false;
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -41,11 +57,18 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
     @Override
     public void onListFragmentInteraction(String movieId) {
-        Intent intent = new Intent(this, MovieDetailsActivity.class);
-        intent.putExtra(Constants.MOVIE_ID_EXTRA, movieId);
-        startActivity(intent);
+        if (isTablet) {
+            Fragment movieDetailsFragment = MovieDetailsFragment.newInstance(movieId);
+            getSupportFragmentManager().beginTransaction().replace(R.id.details_fragment_holder, movieDetailsFragment).commit();
+        } else {
+            Intent intent = new Intent(this, MovieDetailsActivity.class);
+            intent.putExtra(Constants.MOVIE_ID_EXTRA, movieId);
+            startActivity(intent);
+        }
     }
-//To stop automated call to onItemSelected without click event
+
+
+    //To stop automated call to onItemSelected without click event
     public class SpinnerInteractionListener implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
 
         boolean userSelect = false;
@@ -66,7 +89,9 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
                     case 1:
                         movieListFragment.requestMovies(Constants.TOP_RATED_MOVIES_URL + Constants.API_KEY);
                         break;
-
+                    case 2:
+                        movieListFragment.showFavMovies();
+                        break;
                     default:
                 }
                 userSelect = false;
@@ -79,4 +104,5 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
         }
 
     }
+
 }

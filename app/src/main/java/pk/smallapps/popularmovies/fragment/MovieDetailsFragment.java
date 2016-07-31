@@ -1,13 +1,16 @@
 package pk.smallapps.popularmovies.fragment;
 
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,10 +52,11 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         requestQueue = Volley.newRequestQueue(getContext());
         MovieDbOpenHelper movieDbOpenHelper = new MovieDbOpenHelper(getContext());
-        SQLiteDatabase moviesDb = movieDbOpenHelper.getReadableDatabase();
-        Cursor cursor = moviesDb.query(MovieEntry.TABLE_NAME, null, MovieEntry.COLUMN_MOVIE_ID + "=" + movieId, null, null, null, null);
+        SQLiteDatabase moviesDb = movieDbOpenHelper.getWritableDatabase();
+        final Cursor cursor = moviesDb.query(MovieEntry.TABLE_NAME, null, MovieEntry.COLUMN_MOVIE_ID + "=" + movieId, null, null, null, null);
         String movieTitle = null;
         String movieReleaseDate = null;
         String movieRating = null;
@@ -65,7 +69,6 @@ public class MovieDetailsFragment extends Fragment {
             movieOverview = cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_OVERVIEW));
             movieThumbnailRelativeUrl = cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_POSTER));
         }
-        cursor.close();
 
         View view = inflater.inflate(R.layout.fragment_movie_details, container, false);
         ((TextView) view.findViewById(R.id.details_title_text_view)).setText(movieTitle);
@@ -75,6 +78,24 @@ public class MovieDetailsFragment extends Fragment {
         ImageView thumbnail = (ImageView) view.findViewById(R.id.details_thumbnail_image_view);
         Picasso.with(getContext()).load(Constants.IMAGE_BASE_URL + movieThumbnailRelativeUrl).into(thumbnail);
 
+
+        final Button markFavButton = (Button) view.findViewById(R.id.details_mark_fav_button);
+        if (sharedPreferences.contains(movieId)) {
+            markFavButton.setText("Favorite");
+        }
+        final String finalMovieThumbnailRelativeUrl = movieThumbnailRelativeUrl;
+        markFavButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sharedPreferences.contains(movieId)) {
+                    sharedPreferences.edit().remove(movieId).commit();
+                    markFavButton.setText(R.string.mark_as_fav);
+                } else {
+                    sharedPreferences.edit().putString(movieId, finalMovieThumbnailRelativeUrl).commit();
+                    markFavButton.setText("Favorite");
+                }
+            }
+        });
         return view;
     }
 

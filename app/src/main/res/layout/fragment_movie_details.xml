@@ -67,18 +67,19 @@
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_toRightOf="@+id/details_thumbnail_image_view" />
 
-            <!--<Button-->
-                <!--android:id="@+id/details_mark_fav_button"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentEnd="false"-->
-                <!--android:layout_alignParentRight="false"-->
-                <!--android:layout_below="@+id/details_rating_text_view"-->
-                <!--android:layout_marginLeft="@dimen/year_section_left_margin"-->
-                <!--android:layout_marginTop="@dimen/standard_margin"-->
-                <!--android:layout_toRightOf="@+id/details_thumbnail_image_view"-->
-                <!--android:text="@string/mark_as_fav"-->
-                <!--android:textSize="@dimen/fav_button_text_size" />-->
+            <Button
+                android:id="@+id/details_mark_fav_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentRight="false"
+                android:layout_below="@+id/details_rating_text_view"
+                android:layout_marginLeft="@dimen/year_section_left_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_toRightOf="@+id/details_thumbnail_image_view"
+                android:text="@string/mark_as_fav"
+                android:textSize="@dimen/fav_button_text_size"
+                android:onClick="markFavorite"/>
 
         </RelativeLayout>
         <TextView

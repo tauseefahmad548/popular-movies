@@ -26,6 +26,7 @@ public class MovieDbOpenHelper extends SQLiteOpenHelper {
                     MoviesDbContract.MovieEntry.COLUMN_MOVIE_POSTER + TEXT_TYPE + COMMA_SEP +
                     MoviesDbContract.MovieEntry.COLUMN_MOVIE_THUMBNAIL + TEXT_TYPE + COMMA_SEP +
                     MoviesDbContract.MovieEntry.COLUMN_MOVIE_POPULARITY + TEXT_TYPE +
+                    MoviesDbContract.MovieEntry.COLUMN_MOVIE_FAVORITE + TEXT_TYPE +
             " )";
 
     private static final String SQL_DELETE_ENTRIES =

@@ -19,6 +19,7 @@ public final class MoviesDbContract {
             public static final String COLUMN_MOVIE_RELEASE_DATE = "date";
             public static final String COLUMN_MOVIE_USER_RATING = "rating";
             public static final String COLUMN_MOVIE_POPULARITY = "popularity";
+            public static final String COLUMN_MOVIE_FAVORITE = "favorite";
         }
 
 }

@@ -28,6 +28,7 @@ import pk.smallapps.popularmovies.Constants;
 import pk.smallapps.popularmovies.MovieDbOpenHelper;
 import pk.smallapps.popularmovies.MoviesDbContract;
 import pk.smallapps.popularmovies.R;
+import pk.smallapps.popularmovies.adapter.FavMoviesRecyclerViewAdapter;
 import pk.smallapps.popularmovies.adapter.MovieListRecyclerViewAdapter;
 
 /**
@@ -36,13 +37,14 @@ import pk.smallapps.popularmovies.adapter.MovieListRecyclerViewAdapter;
  */
 public class MovieListFragment extends Fragment {
 
-    private SQLiteDatabase movieDatabase;
+    SQLiteDatabase movieDatabase;
     private RequestQueue requestQueue;
     private RecyclerView recyclerView;
     private OnListFragmentInteractionListener mListener;
     private View view;
 
     public MovieListFragment() {
+
     }
 
     @Override
@@ -54,7 +56,7 @@ public class MovieListFragment extends Fragment {
         MovieDbOpenHelper movieDbOpenHelper = new MovieDbOpenHelper(getContext());
         movieDatabase = movieDbOpenHelper.getWritableDatabase();
 
-        int mColumnCount = 2;
+        int mColumnCount = getContext().getResources().getInteger(R.integer.movie_list_column_count);
         Context context = view.getContext();
         recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
@@ -149,5 +151,8 @@ public class MovieListFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
 
     }
-
+public void showFavMovies(){
+    recyclerView.setAdapter(new FavMoviesRecyclerViewAdapter(mListener));
+    recyclerView.getAdapter().notifyDataSetChanged();
+}
 }

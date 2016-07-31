@@ -13,6 +13,7 @@
     <string-array name="sort_order_array">
         <item>Most Popular</item>
         <item>Top Rated</item>
+        <item>Favourite</item>
     </string-array>
 
 </resources>
