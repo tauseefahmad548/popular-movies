@@ -20,6 +20,10 @@
             android:paddingLeft="@dimen/movie_title_left_padding"
             android:textColor="@color/abc_primary_text_material_dark"
             android:textSize="@dimen/movie_title_text_size" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_star"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
