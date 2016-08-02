@@ -40,9 +40,9 @@ public class MovieDetailsFragment extends Fragment {
     private static final String RATING_KEY = "rating";
     private static final String OVERVIEW_KEY = "overview";
     public static final String ARG_MOVIE_ID = "movie_id";
-    LinearLayout videosContainerLinearLayout;
-    Button loadReviewsButton;
-    TextView reviewsTextView;
+    private LinearLayout videosContainerLinearLayout;
+    private Button loadReviewsButton;
+    private TextView reviewsTextView;
     private String movieId;
     private RequestQueue requestQueue;
 
@@ -59,7 +59,6 @@ public class MovieDetailsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             movieId = getArguments().getString(ARG_MOVIE_ID);
@@ -169,7 +168,6 @@ public class MovieDetailsFragment extends Fragment {
                     TextView videoTitletextView = (TextView) view.findViewById(R.id.video_title);
                     videoTitletextView.setText(result.optString(Constants.VIDEOS_TITLE_JSON_NAME));
                     final String youtubeVideoId = result.optString(Constants.VIDEOS_YOUTUBE_ID_JSON_NAME);
-//                    videoTitletextView.setTag(result.optString(""));
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

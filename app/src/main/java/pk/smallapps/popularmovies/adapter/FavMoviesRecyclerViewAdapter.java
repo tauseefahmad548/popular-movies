@@ -21,9 +21,7 @@ import pk.smallapps.popularmovies.Constants;
 import pk.smallapps.popularmovies.R;
 import pk.smallapps.popularmovies.fragment.MovieListFragment;
 
-/**
- * Created by Tauseef Ahmad on 8/1/2016.
- */
+
 public class FavMoviesRecyclerViewAdapter extends RecyclerView.Adapter<FavMoviesRecyclerViewAdapter.ViewHolder> {
     HashMap<String, String> hashMap;
 //    String[] movieIdsArray;

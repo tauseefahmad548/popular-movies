@@ -1,8 +1,6 @@
 package pk.smallapps.popularmovies;
 
-/**
- * Created by tauqeer ahmad on 7/28/2016.
- */
+
 public class Constants {
     public static final String API_KEY = "9996f61f20b3f672c74f0614f958972d";
     public static final String POPULAR_MOVIES_URL = "http://api.themoviedb.org/3/movie/popular?api_key=";

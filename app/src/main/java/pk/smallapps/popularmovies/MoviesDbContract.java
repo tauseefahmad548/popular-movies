@@ -2,12 +2,9 @@ package pk.smallapps.popularmovies;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by Tauseef Ahmad on 7/28/2016.
- */
+
 public final class MoviesDbContract {
 
-        public MoviesDbContract() {}
 
         public static abstract class MovieEntry implements BaseColumns {
             public static final String TABLE_NAME = "movies";

@@ -93,8 +93,7 @@
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_toRightOf="@+id/details_thumbnail_image_view"
                 android:text="@string/mark_as_fav"
-                android:textSize="@dimen/fav_button_text_size"
-                android:onClick="markFavorite"/>
+                android:textSize="@dimen/fav_button_text_size"/>
 
         </RelativeLayout>
         <TextView
