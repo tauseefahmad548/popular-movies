@@ -12,6 +12,8 @@
     <string name="dummy_movie_length">120min</string>
     <string name="favorite">Favorite</string>
     <string name="load_reviews">Load Reviews</string>
+    <string name="no_review_found">No reviews found.</string>
+    <string name="error_loading_reviews">Error while loading reviews</string>
 
     <string-array name="sort_order_array">
         <item>Most Popular</item>

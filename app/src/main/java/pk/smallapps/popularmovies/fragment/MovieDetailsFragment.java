@@ -191,6 +191,7 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     public void requestReviews(String movieId) {
+        loadReviewsButton.setEnabled(false);
         String url = Constants.API_BASE_URL + movieId + Constants.MOVIE_REVIEWS_URL + Constants.API_KEY;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -205,11 +206,18 @@ public class MovieDetailsFragment extends Fragment {
                     String review = result.optString(Constants.REVIEWS_CONTENT_JSON_NAME);
                     stringBuilder.append(author).append(":\n\t").append(review).append("\n\n");
                 }
-                reviewsTextView.setText(stringBuilder.toString());
+                if (count == 0) {
+                    reviewsTextView.setText(R.string.no_review_found);
+                } else {
+                    reviewsTextView.setText(stringBuilder.toString());
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loadReviewsButton.setText(R.string.retry);
+                loadReviewsButton.setEnabled(true);
+                reviewsTextView.setText(R.string.error_loading_reviews);
 
             }
         });
