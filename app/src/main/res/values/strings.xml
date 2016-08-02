@@ -8,7 +8,10 @@
     <string name="retry">Retry</string>
     <string name="list_updated">List updated</string>
     <string name="mark_as_fav">Mark as favourite</string>
+    <string name="remove_from_fav">Remove from favorites</string>
     <string name="dummy_movie_length">120min</string>
+    <string name="favorite">Favorite</string>
+    <string name="load_reviews">Load Reviews</string>
 
     <string-array name="sort_order_array">
         <item>Most Popular</item>

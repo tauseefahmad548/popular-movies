@@ -10,20 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/details_title_text_view"
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/material_deep_teal_500"
-            android:gravity="center|start"
-            android:padding="@dimen/movie_title_padding"
-            android:paddingLeft="@dimen/movie_title_left_padding"
-            android:textColor="@color/abc_primary_text_material_dark"
-            android:textSize="@dimen/movie_title_text_size" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_star"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/details_title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/material_deep_teal_500"
+                android:gravity="center|start"
+                android:padding="@dimen/movie_title_padding"
+                android:paddingLeft="@dimen/movie_title_left_padding"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="@dimen/movie_title_text_size" />
+            <TextView
+                android:id="@+id/details_fav_tag_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="@string/favorite"
+                android:background="@color/colorAccent"
+                android:padding="2dp"
+                android:visibility="gone"/>
+        </FrameLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -91,6 +102,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin" />
+        <View style="@style/Divider"/>
+        <LinearLayout
+            android:id="@+id/videos_container_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+        <View style="@style/Divider"/>
+        <Button
+            android:id="@+id/details_load_reviews_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/load_reviews"/>
+        <TextView
+            android:id="@+id/reviews_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </ScrollView>

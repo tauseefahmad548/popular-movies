@@ -20,6 +20,10 @@ public class Constants {
     public static final String MOVIE_TITLE_JSON_NAME = "title";
     public static final String MOVIE_USER_RATING_JSON_NAME = "vote_average";
     public static final String MOVIE_POPULARITY_JSON_NAME = "popularity";
+    public static final String VIDEOS_TITLE_JSON_NAME = "name";
+    public static final String VIDEOS_YOUTUBE_ID_JSON_NAME = "key";
+    public static final String REVIEWS_AUTHOR_JSON_NAME = "author";
+    public static final String REVIEWS_CONTENT_JSON_NAME = "content";
 
     public static final String MOVIE_ID_EXTRA = "id_extra";
 

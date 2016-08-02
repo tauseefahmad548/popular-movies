@@ -28,6 +28,7 @@ import pk.smallapps.popularmovies.Constants;
 import pk.smallapps.popularmovies.MovieDbOpenHelper;
 import pk.smallapps.popularmovies.MoviesDbContract;
 import pk.smallapps.popularmovies.R;
+import pk.smallapps.popularmovies.activity.MainActivity;
 import pk.smallapps.popularmovies.adapter.FavMoviesRecyclerViewAdapter;
 import pk.smallapps.popularmovies.adapter.MovieListRecyclerViewAdapter;
 
@@ -65,8 +66,9 @@ public class MovieListFragment extends Fragment {
         String url = Constants.POPULAR_MOVIES_URL + Constants.API_KEY;
         if (savedInstanceState == null) {
             requestMovies(url);
-        }else
-        {
+        } else if (((MainActivity) getActivity()).getCurrentSpinnerIndex() == 2) {
+            showFavMovies();
+        } else {
             Cursor cursor = movieDatabase.query(MoviesDbContract.MovieEntry.TABLE_NAME, null, null, null, null, null, null);
             recyclerView.setAdapter(new MovieListRecyclerViewAdapter(cursor, mListener));
             recyclerView.getAdapter().notifyDataSetChanged();
@@ -133,7 +135,7 @@ public class MovieListFragment extends Fragment {
                 recyclerView.setAdapter(new MovieListRecyclerViewAdapter(cursor, mListener));
                 recyclerView.getAdapter().notifyDataSetChanged();
                 Toast.makeText(getContext(), R.string.list_updated, Toast.LENGTH_SHORT).show();
-
+//                recyclerView.findViewHolderForAdapterPosition(0).itemView.performClick();
 
             }
         }, new Response.ErrorListener() {
@@ -151,8 +153,9 @@ public class MovieListFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
 
     }
-public void showFavMovies(){
-    recyclerView.setAdapter(new FavMoviesRecyclerViewAdapter(mListener));
-    recyclerView.getAdapter().notifyDataSetChanged();
-}
+
+    public void showFavMovies() {
+        recyclerView.setAdapter(new FavMoviesRecyclerViewAdapter(mListener));
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
 }

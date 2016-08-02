@@ -13,7 +13,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import pk.smallapps.popularmovies.Constants;
 import pk.smallapps.popularmovies.R;
@@ -24,15 +26,24 @@ import pk.smallapps.popularmovies.fragment.MovieListFragment;
  */
 public class FavMoviesRecyclerViewAdapter extends RecyclerView.Adapter<FavMoviesRecyclerViewAdapter.ViewHolder> {
     HashMap<String, String> hashMap;
-    String[] movieIdsArray;
+//    String[] movieIdsArray;
+    List<String> lst;
     private final MovieListFragment.OnListFragmentInteractionListener mListener;
 
     public FavMoviesRecyclerViewAdapter(MovieListFragment.OnListFragmentInteractionListener listener) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences((Context) listener);
         hashMap = (HashMap<String, String>) sharedPreferences.getAll();
-        Set<String> movieIdsSet = hashMap.keySet();
-        movieIdsArray = new String[hashMap.size()];
-        movieIdsSet.toArray(movieIdsArray);
+        Set<String> keySet = hashMap.keySet();
+        String [] tempArray = new String[hashMap.size()];
+        keySet.toArray(tempArray);
+
+        Pattern p = Pattern.compile("\\d*");
+        lst= new ArrayList<>();
+        for (int i=0; i<tempArray.length; i++) {
+            if(p.matcher(tempArray[i]).matches()){
+                lst.add(tempArray[i]);
+            }
+        }
         mListener = listener;
     }
 
@@ -45,7 +56,8 @@ public class FavMoviesRecyclerViewAdapter extends RecyclerView.Adapter<FavMovies
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        String movieId = movieIdsArray[position];
+//        String movieId = movieIdsArray[position];
+        String movieId = lst.get(position);
         holder.movieId = movieId;
 
         Picasso.with((Context) mListener).load(Constants.IMAGE_BASE_URL + hashMap.get(movieId)).into(holder.posterImageView);
@@ -62,7 +74,8 @@ public class FavMoviesRecyclerViewAdapter extends RecyclerView.Adapter<FavMovies
 
     @Override
     public int getItemCount() {
-        return hashMap.size();
+//        return hashMap.size();
+        return lst.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

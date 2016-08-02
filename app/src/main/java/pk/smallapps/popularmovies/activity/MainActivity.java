@@ -21,15 +21,19 @@ import pk.smallapps.popularmovies.fragment.MovieListFragment;
 
 
 public class MainActivity extends AppCompatActivity implements MovieListFragment.OnListFragmentInteractionListener {
+    private static final String SPINNER_POSITION_KEY = "spinner_current_pos";
     MovieListFragment movieListFragment;
     FrameLayout detailsFragmentHolder;
+    Spinner spinner;
     boolean isTablet;
+    int spinnerSelectedindex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            spinnerSelectedindex = savedInstanceState.getInt(SPINNER_POSITION_KEY);
+        }
         setContentView(R.layout.activity_main);
 
         Configuration config = getResources().getConfiguration();
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
         setSupportActionBar(toolbar);
 
         movieListFragment = (MovieListFragment) getSupportFragmentManager().findFragmentById(R.id.movies_list_fragment);
-        Spinner spinner = (Spinner) findViewById(R.id.sort_order_spinner);
+        spinner = (Spinner) findViewById(R.id.sort_order_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sort_order_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -52,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
         SpinnerInteractionListener listener = new SpinnerInteractionListener();
         spinner.setOnTouchListener(listener);
         spinner.setOnItemSelectedListener(listener);
-
     }
 
     @Override
@@ -105,4 +108,13 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
     }
 
+    public  int getCurrentSpinnerIndex(){
+        return spinnerSelectedindex;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SPINNER_POSITION_KEY,spinner.getSelectedItemPosition());
+        super.onSaveInstanceState(outState);
+    }
 }
